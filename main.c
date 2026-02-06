@@ -37,6 +37,7 @@ int main(void)
     }
 
     creature billy = create_creature(5,5.0,500,500);
+    creature billy2 = create_creature(5,5.0,800,800);
     SDL_Event event;
     SDL_PollEvent(&event);
     int cpt = 0;
@@ -57,11 +58,10 @@ int main(void)
         }
         
         SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-        //draw_creature(billy,renderer);
-        draw_limb(get_limb(billy,1),renderer);
-        //draw_circle(500,500,10,renderer);
-        //draw_circle(700,700,10,renderer);
+        draw_creature(billy,renderer);
+        draw_creature(billy2,renderer);
 
+        
 
 
         frames++;
@@ -86,6 +86,7 @@ int main(void)
         cpt++;
     }
     delete_creature(&billy);
+    delete_creature(&billy2);
     statut = EXIT_SUCCESS;
     
 

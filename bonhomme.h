@@ -11,6 +11,7 @@
 typedef struct s_muscle * muscle;
 typedef struct s_limb * limb;
 typedef struct s_creature * creature;
+typedef struct s_point * dot;
 /* =======================
    Fonctions muscle
    ======================= */
@@ -20,14 +21,13 @@ void delete_muscle(muscle * m);
 /* =======================
    Fonctions limb
    ======================= */
-limb create_limb(float ax, float ay, float bx, float by);
+limb create_limb(dot first, dot second);
 void delete_limb(limb * l);
-limb get_limb(creature c, int id);
 /* =======================
    Utilitaires
    ======================= */
 float random_coord(void);
-
+int random_int(int max);
 /* =======================
    Fonctions creature
    ======================= */
@@ -38,4 +38,5 @@ void delete_creature(creature * c);
 void draw_creature(creature c, SDL_Renderer* renderer);
 void draw_circle(int x, int y, int r, SDL_Renderer* renderer);
 void draw_limb(limb l, SDL_Renderer* renderer);
+void draw_dot(dot d, SDL_Renderer* renderer);
 #endif /* CREATURE_H */
