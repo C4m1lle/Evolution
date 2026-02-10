@@ -90,7 +90,7 @@ void delete_limb(limb * l){
 }
 
 float random_coord(void){
-    return (float)rand()/(float)(RAND_MAX)*500.0;
+    return (float)rand()/(float)(RAND_MAX)*300.0;
 }
 int random_int(int max){
     return rand()%max;
@@ -100,27 +100,57 @@ int random_int_nor(int max, int forbid){
     while((c=rand()%max)==forbid);
     return c;
 }
-int scal(){
-    return 1;
+float scal(float ux, float uy, float vx, float vy){
+    return ux*vx+uy*vy;
 }
 
-int proj(float ax, float ay, float vx, float vy){
-    return 1;
+int u_proj_v(float ux, float uy, float vx, float vy, float * ox, float * oy){
+    float n2 = (sqrt(vx*vx+vy*vy))*(sqrt(vx*vx+vy*vy));
+    (*ox) = (scal(ux,uy,vx,vy)/n2)*(vx);
+    (*oy) = (scal(ux,uy,vx,vy)/n2)*(vy);
+    return 0;
 }
+
+void transmit_motion(dot A, dot B, float length, float stiffness){
+    float dx = B->x - A->x;
+    float dy = B->y - A->y;
+    float len = sqrt(dx*dx + dy*dy);
+
+    float ux = dx / len;
+    float uy = dy / len;
+    float nx = -uy;
+    float ny =  ux;
+
+    float v_para  = B->vx*ux + B->vy*uy;
+    float v_ortho = B->vx*nx + B->vy*ny;
+
+    float vx_out = v_para * ux + (v_ortho * stiffness) * nx;
+    float vy_out = v_para * uy + (v_ortho * stiffness) * ny;
+
+    A->vx += vx_out;
+    A->vy += vy_out;
+
+    // contrainte
+    float k = length / len;
+    B->x = A->x + dx * k;
+    B->y = A->y + dy * k;
+}
+
 
 creature create_creature(int body_size, float energy, int x, int y){
     creature c = malloc(sizeof(struct s_creature));
     dot * body_joints = malloc(sizeof(dot)*body_size);
     limb * body = malloc(sizeof(limb)*(body_size-1));
     c->body_size = body_size;
-    srand((unsigned int)time(NULL));
+    //srand((unsigned int)time(NULL));
     for(int i = 0; i<body_size;i++){
         body_joints[i] = create_dot(random_coord(),random_coord());
+        body_joints[i]->vx = 10.0;
     }
-    for(int i = 0; i<body_size;i++){
-        body[i] = create_limb(body_joints[i],body_joints[random_int_nor(body_size,i)]);
+    for(int i = 0; i<body_size-1;i++){
+        body[i] = create_limb(body_joints[i],body_joints[i+1]);
     }
-
+ 
     if(!c || !body){
         free(c);
         free(body);
@@ -135,6 +165,20 @@ creature create_creature(int body_size, float energy, int x, int y){
     c->x = x;
     c->y = y;
     return c;
+}
+void update_creature(creature c){
+    for(int i = 0; i<c->body_size;i++){
+        c->body_joints[i]->x += (int)c->body_joints[i]->vx;
+        c->body_joints[i]->y += (int)c->body_joints[i]->vy;
+        c->body_joints[i]->vx/=1.4;
+        c->body_joints[i]->vy/=1.4;
+        
+    }
+    limb l;
+    for(int i = 0; i<c->body_size-1;i++){
+        l = c->body[i];
+        transmit_motion(l->first,l->second,l->length,0.1);
+    }
 }
 
 void delete_creature(creature* c){
@@ -200,3 +244,14 @@ void draw_limb(limb l, SDL_Renderer* renderer){
 void draw_dot(dot d, SDL_Renderer* renderer){
     draw_circle(d->x, d->y, 10, renderer);
 }
+
+
+
+/*
+int main(void){
+    creature billy = create_creature(5,5.0,500,500);
+    delete_creature(&billy);
+    //creature billy2 = create_creature(5,5.0,500,500);
+    //delete_creature(&billy2);
+}
+    */

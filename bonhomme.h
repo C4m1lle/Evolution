@@ -28,12 +28,15 @@ void delete_limb(limb * l);
    ======================= */
 float random_coord(void);
 int random_int(int max);
+float scal(float ux, float uy, float vx, float vy);
+int u_proj_v(float ux, float uy, float vx, float vy, float * ox, float * oy);
+void transmit_motion(dot A, dot B, float length, float stiffness);
 /* =======================
    Fonctions creature
    ======================= */
 creature create_creature(int body_size, float energy, int x, int y);
 void delete_creature(creature * c);
-
+void update_creature(creature c);
 
 void draw_creature(creature c, SDL_Renderer* renderer);
 void draw_circle(int x, int y, int r, SDL_Renderer* renderer);
