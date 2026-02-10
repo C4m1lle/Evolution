@@ -1,7 +1,6 @@
 # evolution
 
-gcc main.c $(sdl2-config --cflags --libs)
-
+About evolution :
 
 Evolution is a personal project aimed at developing my skills in 2D graphical interfaces, neural networks, evolutionary algorithms, physical simulations, etc.
 Its main objective is to create an evolving animation of simple little beings exploring a basic environment.
@@ -34,3 +33,11 @@ fast training mode without GUI,
 
 v 0.5 :
 surely patchs and upgrades
+
+
+
+commands :
+
+| make clean 
+| make 
+| ./main |
