@@ -6,8 +6,7 @@ gcc main.c $(sdl2-config --cflags --libs)
 Evolution is a personal project aimed at developing my skills in 2D graphical interfaces, neural networks, evolutionary algorithms, physical simulations, etc.
 Its main objective is to create an evolving animation of simple little beings exploring a basic environment.
 
-Actual version: V0.2
-Actual Milestone: muscle implementation
+Actual version: V0.2 // Actual Milestone: muscle implementation
 
 Roadmap:
 v 0.1
