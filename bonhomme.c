@@ -168,11 +168,19 @@ creature create_creature(int body_size, float energy, int x, int y){
 }
 void update_creature(creature c){
     for(int i = 0; i<c->body_size;i++){
+        if(c->body_joints[i]->x+(int)c->body_joints[i]->vx<10){
+            c->body_joints[i]->vx=-(c->body_joints[i]->vx);
+            printf("mur tapé\n");
+        }
+        if(c->body_joints[i]->y+(int)c->body_joints[i]->vy<10){
+            c->body_joints[i]->vy=-(c->body_joints[i]->vy);
+            printf("mur tapé\n");
+        }
         c->body_joints[i]->x += (int)c->body_joints[i]->vx;
         c->body_joints[i]->y += (int)c->body_joints[i]->vy;
         c->body_joints[i]->vx/=1.4;
         c->body_joints[i]->vy/=1.4;
-        
+
     }
     limb l;
     for(int i = 0; i<c->body_size-1;i++){
@@ -245,7 +253,9 @@ void draw_dot(dot d, SDL_Renderer* renderer){
     draw_circle(d->x, d->y, 10, renderer);
 }
 
-
+void draw_muscle(SDL_Renderer* renderer){
+    
+}
 
 /*
 int main(void){

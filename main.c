@@ -79,7 +79,7 @@ int main(void)
 
 
         SDL_RenderPresent(renderer);
-        SDL_Delay(100);
+        SDL_Delay(50);
         cpt++;
     }
     delete_creature(&billy);
