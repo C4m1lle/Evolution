@@ -13,7 +13,7 @@ struct s_layer{
     int input_size;
     float ** output;
 };
-
+/*
 layer create_layer(int input_size, int size){
     layer l = malloc(sizeof(struct s_layer));
     if(!l){
@@ -57,3 +57,4 @@ void compute_layer(float ** l1, int size_l1, layer l2){
         compute_neurone(l1,size_l1,l2[i]);
     }
 }
+*/

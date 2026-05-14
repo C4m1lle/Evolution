@@ -21,6 +21,7 @@ v 0.2 :
 muscle implementation,
 neural network implementation,
 physics and performances improvements,
+multithread computation,
 
 v 0.3 :
 environment creation,
@@ -30,6 +31,7 @@ creation of goals for creatures,
 v 0.4 :
 evolutionary algorithms,
 fast training mode without GUI,
+GPU computing,
 
 v 0.5 :
 surely patchs and upgrades

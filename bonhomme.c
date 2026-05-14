@@ -168,11 +168,19 @@ creature create_creature(int body_size, float energy, int x, int y){
 }
 void update_creature(creature c){
     for(int i = 0; i<c->body_size;i++){
-        if(c->body_joints[i]->x+(int)c->body_joints[i]->vx<10){
+        if(c->body_joints[i]->x<10){
             c->body_joints[i]->vx=-(c->body_joints[i]->vx);
             printf("mur tapé\n");
         }
-        if(c->body_joints[i]->y+(int)c->body_joints[i]->vy<10){
+        if(c->body_joints[i]->y<10){
+            c->body_joints[i]->vy=-(c->body_joints[i]->vy);
+            printf("mur tapé\n");
+        }
+        if(c->body_joints[i]->x>1070){
+            c->body_joints[i]->vx=-(c->body_joints[i]->vx);
+            printf("mur tapé\n");
+        }
+        if(c->body_joints[i]->y>710){
             c->body_joints[i]->vy=-(c->body_joints[i]->vy);
             printf("mur tapé\n");
         }
